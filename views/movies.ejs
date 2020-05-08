@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/style.css">
+    <title>webapp movies</title>
+</head>
+
+<body>
+<%- include ('./partials/header') %>
+    <h1>Parcours des films</h1>
+    <p>ici la liste des futurs films</p>
+        <div id="queue">
+            <% for(item of moviesid) { %>
+                <div> <%= item.title %></div>
+                <% }%>
+        </div>
+
+        <div>
+            <div ></div><p>ajoutez film</p></div>
+            <form action="/movies" method="post" enctype="multipart/form-data">
+                <label for="title">Titre</label>
+                <input type="text" id="idmovies" name="title">
+                <label for="annee">Annee</label>
+                <input type="text" name="annee">
+                <input type="submit">
+            </form>
+        </div>
+
+<%- include ('./partials/footer') %>
+</body>
+
+
+
+<script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', envoi(e));
+    
+    const envoi=(e)=>{
+        e.preventDefault();
+        if(fetch){
+            fetch('/movies', {
+                method:'POST',
+                body:new FormData(form)
+            })
+            .then(check(response))
+    
+        }
+    
+    }
+
+    
+    const check=(response)=>{
+        if( response.status>=200 && response.status<300){
+            let newdiv = document.createElement('div');
+            const moviesTitle= document.getElementById('idmovies').value;
+            newdiv.innerHTML = `$(moviesTitle)`;
+            const queue= document.querySelector('.queue');
+            queue.appendChild(newdiv);
+            
+        }
+    }
+    
+    
+    
+    </script>
+
+</html>

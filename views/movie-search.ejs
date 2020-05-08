@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/style.css">
+    <title>webapp movies</title>
+</head>
+
+<body>
+<%- include ('./partials/header') %>
+    <h1>Chercher un film</h1>
+   
+
+        <div>
+            <div ></div><p>Chercher film</p></div>
+            <form action="/movie-search" method="post" enctype="multipart/form-data">
+                <label for="title">Titre</label>
+                <input type="text" id="search" name="titleSearch">
+                <input type="submit">
+            </form>
+        </div>
+
+        <div>
+         
+        </div>
+       <div id="queue">
+            <% for(item of idtitre) { %>
+                <div> 
+                    <p><%= item.title %></p>
+                     
+                    <img src= <%= "https://image.tmdb.org/t/p/original/"+ item.poster_path %> alt="" width="50px" heigth="50px">
+                    <p> <%= item.overview %> </p>
+
+                </div>
+                <% }%>
+        </div>
+      
+
+<%- include ('./partials/footer') %>
+</body>
+
+
+
+<script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', envoi(e));
+    
+    const envoi=(e)=>{
+        e.preventDefault();
+        if(fetch){
+            fetch('/movie-search', {
+                method:'POST',
+                body:new FormData(form)
+            })
+            .then(check(response))
+    
+        }
+    
+    }
+
+    
+    const check=(response)=>{
+        if( response.status>=200 && response.status<300){
+            let newdiv = document.createElement('div');
+            const moviesTitle= document.getElementById('idmovies').value;
+            newdiv.innerHTML = `$(moviesTitle)`;
+            const queue= document.querySelector('.queue');
+            queue.appendChild(newdiv);
+            
+        }
+    }
+    
+    
+    
+    </script>
+
+</html>

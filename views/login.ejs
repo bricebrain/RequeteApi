@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/style.css">
+    <title>webapp movies</title>
+</head>
+
+<body>
+<%- include ('./partials/header') %>
+    <h1>Page de login</h1>
+   
+
+        <div class="container"> 
+            
+            <form action="/login" method="post" enctype="multipart/form-data">
+                <label for="email">email </label>
+                <input type="text" id="idemail" name="email">
+                <label for="password">password </label>
+                <input type="password" id="idpassword" name="password">
+                <input type="submit">
+            </form>
+
+        </div>
+
+    <div>
+        <p><%= connexion  %> </p>
+    </div>
+       
+
+<%- include ('./partials/footer') %>
+</body>
+
+
+
+<script>
+   
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', envoi(e));
+    
+    const envoi=(e)=>{
+        e.preventDefault();
+        if(fetch){
+            fetch('/login', {
+                method:'POST',
+                body:new FormData(form)
+            })
+            .then(check(response))
+    
+        }
+    
+    }
+
+    
+    const check=(response)=>{
+        if( response.status>=200 && response.status<300){
+            
+            console.log(response)
+            
+    
+            
+        }
+       
+    }
+   
+    </script>
+
+</html>

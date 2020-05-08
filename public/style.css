@@ -1,0 +1,29 @@
+*{
+    color:black;
+}
+
+a {
+    text-decoration: none;
+
+}
+
+
+.container{
+
+    display: flex;
+    border: 1px black solid;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: auto;
+    padding:50px;
+
+    margin: 20px;
+
+}
+
+input{
+    flex:1;
+    margin: 5px;
+    
+}
